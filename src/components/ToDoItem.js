@@ -10,11 +10,22 @@ class ToDoItem extends Component {
         
         // DISPLAY WHERE WE ARE
         console.log("\t\t\tToDoItem " + this.props.toDoListItem.id + " constructor");
+        this.state = {
+            inputOpen: false
+        }
     }
+    
 
     componentDidMount = () => {
         // DISPLAY WHERE WE ARE
         console.log("\t\t\tToDoItem " + this.props.toDoListItem.id + " did mount");
+    }
+
+    inputName = () => {
+        let input = ! this.state.inputOpen;
+        this.setState({
+            inputOpen: input
+        });
     }
 
     render() {
@@ -24,10 +35,12 @@ class ToDoItem extends Component {
         let statusType = "status-complete";
         if (listItem.status === "incomplete")
             statusType = "status-incomplete";
-
         return (
             <div id={'todo-list-item-' + listItem.id} className='list-item-card'>
-                <div className='item-col task-col'>{listItem.description}</div>
+                {this.state.inputOpen?
+                    <input onBlur={this.inputName}></input> :
+                    <div className='item-col task-col' onClick={this.inputName}>{listItem.description}</div>
+                }
                 <div className='item-col due-date-col'>{listItem.due_date}</div>
                 <div className='item-col status-col' className={statusType}>{listItem.status}</div>
                 <div className='item-col test-4-col'></div>
