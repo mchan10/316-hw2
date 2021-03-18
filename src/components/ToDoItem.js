@@ -17,7 +17,6 @@ class ToDoItem extends Component {
         }
     }
     
-
     componentDidMount = () => {
         // DISPLAY WHERE WE ARE
         console.log("\t\t\tToDoItem " + this.props.toDoListItem.id + " did mount");

@@ -315,6 +315,21 @@ class App extends Component {
     }, this.afterToDoListsChangeComplete);
   }
 
+  keyboardHandle = (event) => {
+    if (event.ctrlKey){
+      if(event.which === 90){
+        this.tps.undoTransaction();
+      }
+      else if (event.which === 89){
+        this.tps.doTransaction();
+      }
+    }
+  }
+
+  componentDidMount = () => {
+    document.addEventListener("keydown", this.keyboardHandle);
+  }
+
   render() {
     let items = this.state.currentList.items;
     return (
