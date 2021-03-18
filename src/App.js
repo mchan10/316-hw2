@@ -319,9 +319,11 @@ class App extends Component {
     if (event.ctrlKey){
       if(event.which === 90){
         this.tps.undoTransaction();
+        this.setState(this.state);
       }
       else if (event.which === 89){
         this.tps.doTransaction();
+        this.setState(this.state);
       }
     }
   }
