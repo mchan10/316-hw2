@@ -29,7 +29,7 @@ class App extends Component {
     this.tps = new jsTPS();
 
     // CHECK TO SEE IF THERE IS DATA IN LOCAL STORAGE FOR THIS APP
-    let recentLists = localStorage.getItem("recentLists");
+    let recentLists = localStorage.getItem("todoLists");
     console.log("recentLists: " + recentLists);
     if (!recentLists) {
       recentLists = JSON.stringify(testData.toDoLists);
@@ -116,7 +116,7 @@ class App extends Component {
 
     // WILL THIS WORK? @todo
     let toDoListsString = JSON.stringify(this.state.toDoLists);
-    localStorage.setItem("recent_work", toDoListsString);
+    localStorage.setItem("todoLists", toDoListsString);
   }
 
   doUpdateItemTransaction = (id, desc, date, stat) => {

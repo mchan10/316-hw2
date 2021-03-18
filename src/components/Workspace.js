@@ -15,17 +15,17 @@ class Workspace extends Component {
         let count = 0;
         return (
             <div id="workspace">
-                <div id="todo-list-header-card" className="list-item-card">
-                    <div id="task-col-header" className="item-col">Task</div>
-                    <div id="date-col-header" className="item-col">Due Date</div>
-                    <div id="status-col-header" className="item-col">Status</div>
+                <div id="todo-list-header-card">
+                    <div id="task-col-header" className="header-text">Task</div>
+                    <div id="date-col-header" className="header-text">Due Date</div>
+                    <div id="status-col-header" className="header-text">Status</div>
                     {this.props.activeList ?
-                        <div className="item-col" display="flex" flexDirection="row" flexWrap="nowrap">
+                        <div className="header-text header-button">
                             <AddBox id="add-item-button" className="list-item-control material-icons todo-button" onClick={this.props.addNewTodoItemCallback}/>
                             <Delete id="delete-list-button" className="list-item-control material-icons todo-button" onClick={this.props.showModalCallback}/>
                             <Close id="close-list-button" className="list-item-control material-icons todo-button" onClick={this.props.closeCurrentListCallback}/>
                         </div>:
-                        <div className="item-col" display="flex" flexDirection="row" flexWrap="nowrap">
+                        <div className="header-text header-button">
                             <AddBox id="add-item-button" className="list-item-control material-icons disabled-button"/>
                             <Delete id="delete-list-button" className="list-item-control material-icons disabled-button"/>
                             <Close id="close-list-button" className="list-item-control material-icons disabled-button"/>

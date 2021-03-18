@@ -4,6 +4,10 @@
     height:96%;
 }
 
+body{
+    overflow-x: hidden;
+}
+
 #navbar {
     top:0%;
     left:0%;
@@ -94,9 +98,11 @@
 }
 
 #todo-list-header-card {
-    padding-top:25px;
+    padding-top:30px;
     height:30px;
-    width: 98%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
 }
 
 #todo-list-items-div {
@@ -108,8 +114,7 @@
 }
 
 .list-item-card {
-    padding-top:20px;
-    height: 45px;
+    height: 70px;
     display: flex;
     flex-direction: row;
 }
@@ -172,4 +177,21 @@
     top: 70%;   
     width: 25%;
     height: 25%;
+}
+.header-text{
+    width: 25%;
+    display:flex;
+}
+
+.itemunedited{
+    margin-top:25px;
+}
+
+.input-col{
+    width:98%;
+    height:94%;
+}
+
+#add-item-button{
+    margin-left:25%;
 }
