@@ -5,11 +5,13 @@ import jsTPS from './common/jsTPS' // WE NEED THIS TOO
 import UpdateItemTransaction from './transactions/UpdateItemTransaction'
 import AddNewItemTransaction from './transactions/AddNewItemTransaction'
 import MoveItemTransaction from './transactions/MoveItemTransaction';
+import DeleteItemTransaction from './transactions/DeleteItemTransaction';
 
 // THESE ARE OUR REACT COMPONENTS
 import Navbar from './components/Navbar'
 import LeftSidebar from './components/LeftSidebar'
 import Workspace from './components/Workspace'
+import Modal from './components/Modal'
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
 import ItemsListComponent from './components/ItemsListComponent'
 import ListsComponent from './components/ListsComponent'
@@ -56,7 +58,8 @@ class App extends Component {
       currentList: {items: []},
       nextListId: highListId+1,
       nextListItemId: highListItemId+1,
-      useVerboseFeedback: true
+      useVerboseFeedback: true,
+      showModal: false
     }
   }
 
@@ -234,7 +237,61 @@ class App extends Component {
     let transaction = new MoveItemTransaction(this.moveTodoItem, id, index);
     this.tps.addTransaction(transaction);
   }
+  
+  removeTodoItemRet = (id) =>{
+    let updatedList = this.state.currentList;
+    let position = 0;
+    for (let i = 0; i < updatedList.items.length; i++){
+      if (updatedList.items[i].id == id){
+        position = i;
+        break;
+      }
+    }
+    let rmItem = updatedList.items.filter(listItem => listItem.id === id)[0];
+    updatedList.items = updatedList.items.filter(listItem => listItem.id !== id);
+    let updatedLists = this.state.toDoLists;
+    updatedLists.shift();
+    updatedLists.unshift(updatedList);
+    this.setState({
+      currentList: updatedList,
+      toDoLists: updatedLists
+    }, this.afterToDoListsChangeComplete);
+    return [rmItem,position];
+  }
 
+  addTodoItemAtPos = (listItem, position) => {
+    let updatedList = this.state.currentList;
+    updatedList.items.splice(position, 0, listItem);
+    let updatedLists = this.state.toDoLists;
+    updatedLists.shift();
+    updatedLists.unshift(updatedList);
+    this.setState({
+      currentList: updatedList,
+      toDoLists: updatedLists
+    }, this.afterToDoListsChangeComplete);
+  }
+
+  removeTodoItemTrans = (id) =>{
+    let transaction = new DeleteItemTransaction(this.removeTodoItemRet, this.addTodoItemAtPos, id);
+    this.tps.addTransaction(transaction);
+  }
+
+  deleteItemConfirmation = () => {
+    this.setState({
+      showModal: !this.state.showModal
+    });
+  }
+
+  deleteCurrentList = () =>{
+    let updatedList = this.state.currentList;
+    updatedList = null;
+    let updatedLists = this.state.toDoLists;
+    updatedLists.shift();
+    this.setState({
+      currentList: updatedList,
+      toDoLists: updatedLists
+    }, this.afterToDoListsChangeComplete);
+  }
 
   render() {
     let items = this.state.currentList.items;
@@ -253,7 +310,15 @@ class App extends Component {
           updateTodoListCallback={this.updateTodoListItem}
           addNewTodoItemCallback={this.addNewTodoItemTrans}
           moveTodoItemCallback={this.moveTodoItemTrans}
+          deleteItemCallback={this.removeTodoItemTrans}
+          showModalCallback={this.deleteItemConfirmation}
         />
+        {this.state.showModal?
+        <Modal 
+          showModalCallback={this.deleteItemConfirmation}
+          deleteCurrentListCallback={this.deleteCurrentList}
+        />:
+        null}
       </div>
     );
   }

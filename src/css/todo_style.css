@@ -92,7 +92,7 @@
 }
 
 .todo-button:hover {
-    background-color: var(--swatch-contrast);
+    background-color: rgba(255,255,255, 0.7);
 }
 
 #add-list-button {
@@ -114,4 +114,16 @@
 .input-col{
     background-color: var(--swatch-primary);
     outline: none;
+}
+
+#modal-overlay{
+    background-color: rgba(0, 0, 0, 0.5)
+}
+
+#modal-text{
+    border-bottom: dotted;
+}
+
+#confirm-deletion{
+    background-color: var(--swatch-primary);
 }

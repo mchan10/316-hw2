@@ -84,6 +84,11 @@ class ToDoItem extends Component {
         this.props.moveTodoItemCallback(listItem.id, 1);
     }
 
+    deleteItem = () => {
+        let listItem = this.props.toDoListItem;
+        this.props.deleteItemCallback(listItem.id);
+    }
+
     render() {
         // DISPLAY WHERE WE ARE
         console.log("\t\t\tToDoItem render");
@@ -116,7 +121,7 @@ class ToDoItem extends Component {
                 <div className='item-col list-controls-col'>
                     <KeyboardArrowUp className='list-item-control todo-button' onClick={this.moveItemUp}/>
                     <KeyboardArrowDown className='list-item-control todo-button' onClick={this.moveItemDown}/>
-                    <Close className='list-item-control todo-button' />
+                    <Close className='list-item-control todo-button' onClick={this.deleteItem}/>
                     <div className='list-item-control'></div>
         <div className='list-item-control'></div>
                 </div>
