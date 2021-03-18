@@ -61,7 +61,7 @@ class ToDoItem extends Component {
 
     updateStatus = (event) => {
         let newStatus;
-        if (event.target.value == '1'){
+        if (event.target.value === '1'){
             newStatus = "complete"
         }
         else{
@@ -94,8 +94,8 @@ class ToDoItem extends Component {
                     <div className='item-col due-date-col' onClick={this.inputDate}>{listItem.due_date}</div>
                 }
                 {this.state.inputOpenStatus?
-                    <select class='input-col'autoFocus onBlur={this.updateStatus}>
-                        <option value=''> {listItem.status} </option>
+                    <select class='item-col input-col'autoFocus onBlur={this.updateStatus}>
+                        <option value='' style={{display: "none"}}> {listItem.status} </option>
                         <option value='1'> complete </option> 
                         <option value='2'> incomplete </option>
                         </select>:

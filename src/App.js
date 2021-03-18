@@ -140,6 +140,14 @@ class App extends Component {
     this.tps.addTransaction(transaction);
   }
 
+  undoTransaction = () => {
+    this.tps.undoTransaction();
+  }
+
+  redoTransaction = () => {
+    this.tps.doTransaction();
+  }
+
   render() {
     let items = this.state.currentList.items;
     return (
@@ -149,6 +157,8 @@ class App extends Component {
           toDoLists={this.state.toDoLists}
           loadToDoListCallback={this.loadToDoList}
           addNewListCallback={this.addNewList}
+          undoTransactionCallback = {this.undoTransaction}
+          redoTransactionCallback = {this.redoTransaction}
         />
         <Workspace 
           toDoListItems={items} 

@@ -24,8 +24,8 @@ class LeftSidebar extends Component {
                             id="add-list-button"
                             className="material-icons todo_button"
                             onClick={this.handleAddNewList} />
-                        <Undo id="undo-button" className="list-item-control material-icons todo-button" />
-                        <Redo id="redo-button" className="list-item-control material-icons todo-button" />
+                        <Undo id="undo-button" className="list-item-control material-icons todo-button" onClick={this.props.undoTransactionCallback}/>
+                        <Redo id="redo-button" className="list-item-control material-icons todo-button" onClick={this.props.redoTransactionCallback}/>
                     </span>
                 </div>
                 <div id="todo-lists-list">
