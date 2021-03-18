@@ -1,38 +1,44 @@
 #root {
     position:absolute;
-    width:98%;
-    left:1%;
-    height:100%;
+    width:100%;
+    height:96%;
 }
 
 #navbar {
-    position:absolute;
-    height: 50px;
     top:0%;
     left:0%;
-    width: 100%;
+    width: 99%;
     height: 5%;
-    margin:auto;
-    padding-left: 10px;
+    margin-bottom: 0.5%;
+    display:flex;
+    justify-content: space-between;
+}
+
+#container {
+    width:100%;
+    height:100%;
+    display:flex;
 }
 
 #title-div {
-    position: absolute;
+    display:flex;
+    padding-left: 0.5%;
+    align-items: center;
+    justify-content: flex-start;
     top:7px;
 }
 
 #left-sidebar {
-    position:absolute;
-    height:94%;
     width:13%;
     top:5.5%;
     left:0%;
     padding-left: 15px;
+    display:flex;
+    float:left;
+    flex-direction:column;
 }
 
 #workspace {
-    position:absolute;
-    height:94%;
     width:85.5%;
     top:5.5%;
     left:13%;
@@ -41,31 +47,35 @@
     grid-column: 2 span 1;
     grid-row: 2 span 1;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    float:left;
 }
 
 #left-sidebar-header {
     padding-top:25px;
     height:4%;
     top:3%;
-    width: 80%;
-    display: grid;
-    grid-template-columns: 60% 40%;
+    width: 100%;
+    /*display: grid;
+    grid-template-columns: 60% 40%;*/
     white-space: nowrap;
+    display:flex;
 }
 
 #todo-lists-list {
-    position:absolute;
     text-align: center;
     height:80%;
     width:100%;
     top: 8%;
+    display:flex;
+    flex-direction: column;
 }
 
 .todo-list-button {
     padding-top:20px;
     height: 60px;
-    width: 80%;
+    width: 100%;
+    display:flex;
 }
 
 .todo-button {

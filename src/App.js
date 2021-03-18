@@ -72,7 +72,7 @@ class App extends Component {
       testList.id !== toDoList.id
     );
     nextLists.unshift(toDoList);
-
+    this.tps.clearAllTransactions();
     this.setState({
       toDoLists: nextLists,
       currentList: toDoList
@@ -287,6 +287,7 @@ class App extends Component {
     updatedList = null;
     let updatedLists = this.state.toDoLists;
     updatedLists.shift();
+    this.tps.clearAllTransactions();
     this.setState({
       currentList: updatedList,
       toDoLists: updatedLists,
@@ -307,22 +308,24 @@ class App extends Component {
     return (
       <div id="root">
         <Navbar />
-        <LeftSidebar 
-          toDoLists={this.state.toDoLists}
-          loadToDoListCallback={this.loadToDoList}
-          addNewListCallback={this.addNewList}
-          undoTransactionCallback = {this.undoTransaction}
-          redoTransactionCallback = {this.redoTransaction}
-        />
-        <Workspace 
-          toDoListItems={items} 
-          updateTodoListCallback={this.updateTodoListItem}
-          addNewTodoItemCallback={this.addNewTodoItemTrans}
-          moveTodoItemCallback={this.moveTodoItemTrans}
-          deleteItemCallback={this.removeTodoItemTrans}
-          showModalCallback={this.deleteItemConfirmation}
-          closeCurrentListCallback={this.closeCurrentList}
-        />
+        <div id="container">
+          <LeftSidebar 
+            toDoLists={this.state.toDoLists}
+            loadToDoListCallback={this.loadToDoList}
+            addNewListCallback={this.addNewList}
+            undoTransactionCallback = {this.undoTransaction}
+            redoTransactionCallback = {this.redoTransaction}
+          />
+          <Workspace 
+            toDoListItems={items} 
+            updateTodoListCallback={this.updateTodoListItem}
+            addNewTodoItemCallback={this.addNewTodoItemTrans}
+            moveTodoItemCallback={this.moveTodoItemTrans}
+            deleteItemCallback={this.removeTodoItemTrans}
+            showModalCallback={this.deleteItemConfirmation}
+            closeCurrentListCallback={this.closeCurrentList}
+          />
+        </div>
         {this.state.showModal?
         <Modal 
           showModalCallback={this.deleteItemConfirmation}
