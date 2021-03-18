@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import testData from './test/testData.json'
 import jsTPS from './common/jsTPS' // WE NEED THIS TOO
 import UpdateItemTransaction from './transactions/UpdateItemTransaction'
+import AddNewItemTransaction from './transactions/AddNewItemTransation'
 
 // THESE ARE OUR REACT COMPONENTS
 import Navbar from './components/Navbar'
@@ -127,7 +128,6 @@ class App extends Component {
     let updatedLists = this.state.toDoLists;
     updatedLists.shift();
     updatedLists.unshift(updatedList);
-    console.log(oldItem);
     this.setState({
       currentList: updatedList,
       toDoLists: updatedLists
@@ -148,6 +148,58 @@ class App extends Component {
     this.tps.doTransaction();
   }
 
+  addNewTodoItem = (id) => {
+    let nextId = this.state.nextListItemId
+    let newListItem;
+    if (id === undefined){
+      newListItem = {
+        description: "No Description",
+        due_date: "No Date",
+        id: nextId,
+        status: "incomplete"
+      };
+      id = nextId;
+      nextId++;
+    }
+    else{
+      newListItem = {
+        description: "No Description",
+        due_date: "No Date",
+        id: id,
+        status: "incomplete"
+      };
+    }
+    let updatedList = this.state.currentList;
+    updatedList.items.push(newListItem);
+    let updatedLists = this.state.toDoLists;
+    updatedLists.shift();
+    updatedLists.unshift(updatedList);
+    this.setState({
+      currentList: updatedList,
+      toDoLists: updatedLists,
+      nextListItemId: nextId
+    }, this.afterToDoListsChangeComplete);
+    return id;
+  }
+
+  removeTodoItem = (id) => {
+    let updatedList = this.state.currentList;
+    updatedList.items = updatedList.items.filter(listItem => listItem.id !== id);
+    let updatedLists = this.state.toDoLists;
+    updatedLists.shift();
+    updatedLists.unshift(updatedList);
+    this.setState({
+      currentList: updatedList,
+      toDoLists: updatedLists
+    }, this.afterToDoListsChangeComplete);
+  }
+
+  addNewTodoItemTrans = () => {
+    let transaction = new AddNewItemTransaction(this.addNewTodoItem, this.removeTodoItem);
+    this.tps.addTransaction(transaction);
+  }
+
+
   render() {
     let items = this.state.currentList.items;
     return (
@@ -163,6 +215,7 @@ class App extends Component {
         <Workspace 
           toDoListItems={items} 
           updateTodoListCallback={this.updateTodoListItem}
+          addNewTodoItemCallback={this.addNewTodoItemTrans}
         />
       </div>
     );

@@ -19,7 +19,7 @@ class Workspace extends Component {
                     <div id="date-col-header" className="item-col todo-button">Due Date</div>
                     <div id="status-col-header" className="item-col todo-button">Status</div>
                     <div className="item-col" display="flex" flexDirection="row" flexWrap="nowrap">
-                        <AddBox id="add-item-button" className="list-item-control material-icons todo-button" />
+                        <AddBox id="add-item-button" className="list-item-control material-icons todo-button" onClick={this.props.addNewTodoItemCallback}/>
                         <Delete id="delete-list-button" className="list-item-control material-icons todo-button" />
                         <Close id="close-list-button" className="list-item-control material-icons todo-button" />
                     </div>
