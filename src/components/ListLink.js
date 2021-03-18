@@ -7,6 +7,9 @@ class ListLink extends Component {
         
         // DISPLAY WHERE WE ARE
         console.log("\t\t\tListLink " + this.props.toDoList.key + " constructor");
+        this.state={
+            inputNameChange:false
+        }
     }
 
     componentDidMount = () => {
@@ -18,16 +21,44 @@ class ListLink extends Component {
         this.props.loadToDoListCallback(this.props.toDoList);
     }
 
+    handleNameChange = (event) =>{
+        let name = event.target.value;
+        this.props.changeListNameCallback(name);
+        this.setState({
+            inputNameChange:false
+        })
+    }
+
+    toggleNameChange = () => {
+        this.setState({
+            inputNameChange:true
+        })
+    }
+
     render() {
         // DISPLAY WHERE WE ARE
         console.log("\t\t\tListLink render");
-
+        let first = this.props.first;
         return (
-            <div 
-                className='todo-list-button'
-                onClick={this.handleLoadList}
-            >
-                {this.props.toDoList.name}<br />
+            <div>
+                {this.props.first ?
+                    this.state.inputNameChange ?
+                        <input type='text' autoFocus onBlur={this.handleNameChange} defaultValue={this.props.toDoList.name}>
+                        </input>:
+                        <div 
+                            className='todo-list-button firstList'
+                            onDoubleClick={this.toggleNameChange}
+                        >
+                            {this.props.toDoList.name}
+                        </div>
+                    :
+                    <div 
+                        className='todo-list-button'
+                        onClick={this.handleLoadList}
+                    >
+                        {this.props.toDoList.name}
+                    </div>
+                }
             </div>
         )
     }

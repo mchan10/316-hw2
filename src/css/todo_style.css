@@ -75,10 +75,12 @@
     cursor:pointer;
     background-color: var(--swatch-complement);
     font-weight: bold;
+    text-align: center;
+    justify-content:center;
 }
 
 .todo-list-button:hover {
-    background-color: var(--swatch-contrast);
+    background-color: rgba(255,255,255, 0.7);
 }
 
 .todo-button {
@@ -126,4 +128,12 @@
 
 .disabled-button{
     color:#111111 !important;
+}
+
+.firstList{
+    color: rgb(255,200,25);
+}
+
+.list-item-card:hover{
+    background-color: rgb(87, 93, 105);
 }

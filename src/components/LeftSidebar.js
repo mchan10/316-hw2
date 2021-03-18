@@ -15,6 +15,7 @@ class LeftSidebar extends Component {
     }
 
     render() {
+        let count = 0;
         return (
             <div id="left-sidebar">
                 <div id="left-sidebar-header" class="section-header">
@@ -43,7 +44,10 @@ class LeftSidebar extends Component {
                         <ListLink
                             key={toDoList.id}
                             toDoList={toDoList}                                // PASS THE LIST TO THE CHILDREN
-                            loadToDoListCallback={this.props.loadToDoListCallback} />  // PASS THE CALLBACK TO THE CHILDREN
+                            loadToDoListCallback={this.props.loadToDoListCallback}  // PASS THE CALLBACK TO THE CHILDREN
+                            first={count++ == 0 && ! this.props.canAddList}
+                            changeListNameCallback={this.props.changeListNameCallback}
+                        />
                     ))
                 }
                 </div>

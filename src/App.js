@@ -81,13 +81,13 @@ class App extends Component {
 
   addNewList = () => {
     let newToDoListInList = [this.makeNewToDoList()];
-    let newToDoListsList = [...newToDoListInList, ...this.state.toDoLists];
+    let newToDoListsList = [...this.state.toDoLists,...newToDoListInList];
     let newToDoList = newToDoListInList[0];
 
     // AND SET THE STATE, WHICH SHOULD FORCE A render
     this.setState({
       toDoLists: newToDoListsList,
-      currentList: newToDoList,
+      currentList: {items:[]},
       nextListId: this.state.nextListId+1
     }, this.afterToDoListsChangeComplete);
   }
@@ -303,6 +303,18 @@ class App extends Component {
     }, this.afterToDoListsChangeComplete);
   }
 
+  changeListName = (name) => {
+    let updatedList = this.state.currentList;
+    updatedList.name = name;
+    let updatedLists = this.state.toDoLists;
+    updatedLists.shift();
+    updatedLists.unshift(updatedList);
+    this.setState({
+      currentList: updatedList,
+      toDoLists: updatedLists,
+    }, this.afterToDoListsChangeComplete);
+  }
+
   render() {
     let items = this.state.currentList.items;
     return (
@@ -318,6 +330,7 @@ class App extends Component {
             canUndo = {this.tps.hasTransactionToUndo()}
             canRedo = {this.tps.hasTransactionToRedo()}
             canAddList = {!('id' in this.state.currentList)}
+            changeListNameCallback = {this.changeListName}
           />
           <Workspace 
             toDoListItems={items} 
