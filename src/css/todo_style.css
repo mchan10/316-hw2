@@ -65,10 +65,6 @@
     border-bottom: dotted;
 }
 
-.list-item-control {
-    cursor: pointer;
-}
-
 .list-item-card {
     border-bottom: solid;
     border-width: 1px;
@@ -126,4 +122,8 @@
 
 #confirm-deletion{
     background-color: var(--swatch-primary);
+}
+
+.disabled-button{
+    color:#111111 !important;
 }

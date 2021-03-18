@@ -284,7 +284,7 @@ class App extends Component {
 
   deleteCurrentList = () =>{
     let updatedList = this.state.currentList;
-    updatedList = null;
+    updatedList = {items:[]};
     let updatedLists = this.state.toDoLists;
     updatedLists.shift();
     this.tps.clearAllTransactions();
@@ -296,7 +296,7 @@ class App extends Component {
   }
 
   closeCurrentList = () => {
-    let updatedList = null;
+    let updatedList = {items:[]};
     this.tps.clearAllTransactions();
     this.setState({
       currentList: updatedList
@@ -304,7 +304,7 @@ class App extends Component {
   }
 
   render() {
-    let items = this.state.currentList === null ? [] : this.state.currentList.items;
+    let items = this.state.currentList.items;
     return (
       <div id="root">
         <Navbar />
@@ -315,6 +315,9 @@ class App extends Component {
             addNewListCallback={this.addNewList}
             undoTransactionCallback = {this.undoTransaction}
             redoTransactionCallback = {this.redoTransaction}
+            canUndo = {this.tps.hasTransactionToUndo()}
+            canRedo = {this.tps.hasTransactionToRedo()}
+            canAddList = {!('id' in this.state.currentList)}
           />
           <Workspace 
             toDoListItems={items} 
@@ -324,6 +327,7 @@ class App extends Component {
             deleteItemCallback={this.removeTodoItemTrans}
             showModalCallback={this.deleteItemConfirmation}
             closeCurrentListCallback={this.closeCurrentList}
+            activeList={'id' in this.state.currentList}
           />
         </div>
         {this.state.showModal?

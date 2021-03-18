@@ -20,12 +20,21 @@ class LeftSidebar extends Component {
                 <div id="left-sidebar-header" class="section-header">
                     <span class="left-sidebar-header-text">Todolists</span>
                     <span class="left-sidebar-controls" id="add-undo-redo-box">
-                        <AddBox 
-                            id="add-list-button"
-                            className="material-icons todo_button"
-                            onClick={this.handleAddNewList} />
-                        <Undo id="undo-button" className="list-item-control material-icons todo-button" onClick={this.props.undoTransactionCallback}/>
-                        <Redo id="redo-button" className="list-item-control material-icons todo-button" onClick={this.props.redoTransactionCallback}/>
+                        {this.props.canAddList?
+                            <AddBox 
+                                id="add-list-button"
+                                className="material-icons todo-button"
+                                onClick={this.handleAddNewList} />:
+                            <AddBox 
+                                id="add-list-button"
+                                className="material-icons disabled-button"/>
+                        }
+                        {this.props.canUndo?
+                            <Undo id="undo-button" className="list-item-control material-icons todo-button" onClick={this.props.undoTransactionCallback}/>:
+                            <Undo id="undo-button" className="list-item-control material-icons disabled-button"/>}
+                        {this.props.canRedo?
+                            <Redo id="redo-button" className="list-item-control material-icons todo-button" onClick={this.props.redoTransactionCallback}/>:
+                            <Redo id="redo-button" className="list-item-control material-icons disabled-button"/>}
                     </span>
                 </div>
                 <div id="todo-lists-list">
