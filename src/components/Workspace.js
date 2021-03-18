@@ -13,6 +13,7 @@ class Workspace extends Component {
     }
 
     render() {
+        let updateTodoListCallback = this.props.updateTodoListCallback
         return (
             <div id="workspace">
                 <div id="todo-list-header-card" className="list-item-card">
@@ -33,6 +34,7 @@ class Workspace extends Component {
                         <ToDoItem
                             key={toDoListItem.id}
                             toDoListItem={toDoListItem}     // PASS THE ITEM TO THE CHILDREN
+                            updateTodoListCallback = {updateTodoListCallback}
                         />))
                     }
                 </div>

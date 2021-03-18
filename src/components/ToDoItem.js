@@ -11,7 +11,9 @@ class ToDoItem extends Component {
         // DISPLAY WHERE WE ARE
         console.log("\t\t\tToDoItem " + this.props.toDoListItem.id + " constructor");
         this.state = {
-            inputOpen: false
+            inputOpenName: false ,
+            inputOpenDate: false ,
+            inputOpenStatus: false
         }
     }
     
@@ -22,9 +24,29 @@ class ToDoItem extends Component {
     }
 
     inputName = () => {
-        let input = ! this.state.inputOpen;
         this.setState({
-            inputOpen: input
+            inputOpenName: true
+        });
+    }
+
+    inputDate = () => {
+        this.setState({
+            inputOpenDate: true
+        });
+    }
+
+    inputStatus = () => {
+        this.setState({
+            inputOpenStatus: true
+        });
+    }
+
+    updateName = (event) => {
+        let newName = event.target.value;
+        let listItem = this.props.toDoListItem;
+        this.props.updateTodoListCallback(listItem.id, newName, listItem.due_date, listItem.status);
+        this.setState({
+            inputOpenName: false
         });
     }
 
@@ -37,12 +59,25 @@ class ToDoItem extends Component {
             statusType = "status-incomplete";
         return (
             <div id={'todo-list-item-' + listItem.id} className='list-item-card'>
-                {this.state.inputOpen?
-                    <input onBlur={this.inputName}></input> :
+                {this.state.inputOpenName?
+                    <input className='item-col input-col' type='text' autoFocus
+                    defaultValue={listItem.description} onBlur={this.updateName}></input> :
                     <div className='item-col task-col' onClick={this.inputName}>{listItem.description}</div>
                 }
-                <div className='item-col due-date-col'>{listItem.due_date}</div>
-                <div className='item-col status-col' className={statusType}>{listItem.status}</div>
+                {this.state.inputOpenDate?
+                    <input className='item-col input-col' type='date' autoFocus
+                    defaultValue={listItem.due_date} onBlur={this.inputName}></input> :
+                    <div className='item-col due-date-col' onClick={this.inputDate}>{listItem.due_date}</div>
+                }
+                {this.state.inputOpenStatus?
+                    <select class='input-col'>
+                        <option value=''> {listItem.status} </option>
+                        <option value='1'> complete </option> 
+                        <option value='2'> incomplete </option>
+                        </select>:
+                    <div className='item-col status-col' className={statusType} onClick={this.inputStatus}>{listItem.status}</div>
+                }
+                
                 <div className='item-col test-4-col'></div>
                 <div className='item-col list-controls-col'>
                     <KeyboardArrowUp className='list-item-control todo-button' />

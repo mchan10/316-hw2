@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import testData from './test/testData.json'
 import jsTPS from './common/jsTPS' // WE NEED THIS TOO
+import UpdateItemTransaction from './transactions/UpdateItemTransaction'
 
 // THESE ARE OUR REACT COMPONENTS
 import Navbar from './components/Navbar'
@@ -11,6 +12,7 @@ import Workspace from './components/Workspace'
 import ItemsListComponent from './components/ItemsListComponent'
 import ListsComponent from './components/ListsComponent'
 */}
+
 class App extends Component {
   constructor(props) {
     // ALWAYS DO THIS FIRST
@@ -112,6 +114,34 @@ class App extends Component {
     localStorage.setItem("recent_work", toDoListsString);
   }
 
+  doUpdateItemTransaction = (id, desc, date, stat) => {
+    let newListItem = {
+      description: desc,
+      due_date: date,
+      id: id,
+      status: stat
+    };
+    console.log(this.state.currentList);
+    let updatedList = this.state.currentList;
+    let oldItem = updatedList.items.filter(listItem => listItem.id === id)[0];
+    updatedList.items = updatedList.items.map(listItem => listItem.id === id ? newListItem : listItem);
+    let updatedLists = this.state.toDoLists;
+    console.log(updatedList);
+    updatedLists.shift();
+    updatedLists.unshift(updatedList);
+    console.log(updatedLists);
+    this.setState({
+      currentList: updatedList,
+      toDoLists: updatedLists
+    }, this.afterToDoListsChangeComplete);
+    return oldItem;
+  }
+
+  updateTodoListItem = (id, desc, date, stat) => {
+    let transaction = new UpdateItemTransaction(this.doUpdateItemTransaction, id, desc, date, stat);
+    this.tps.addTransaction(transaction);
+  }
+
   render() {
     let items = this.state.currentList.items;
     return (
@@ -122,7 +152,10 @@ class App extends Component {
           loadToDoListCallback={this.loadToDoList}
           addNewListCallback={this.addNewList}
         />
-        <Workspace toDoListItems={items} />
+        <Workspace 
+          toDoListItems={items} 
+          updateTodoListCallback={this.updateTodoListItem}
+        />
       </div>
     );
   }

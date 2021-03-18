@@ -110,3 +110,8 @@
 #add-item-button, #delete-list-button, #close-list-button {
     text-align: center;
 }
+
+.input-col{
+    background-color: var(--swatch-primary);
+    outline: none;
+}
