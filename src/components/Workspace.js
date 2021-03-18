@@ -12,6 +12,7 @@ class Workspace extends Component {
 
     render() {
         let updateTodoListCallback = this.props.updateTodoListCallback
+        let count = 0;
         return (
             <div id="workspace">
                 <div id="todo-list-header-card" className="list-item-card">
@@ -40,6 +41,8 @@ class Workspace extends Component {
                             updateTodoListCallback = {updateTodoListCallback}
                             moveTodoItemCallback = {this.props.moveTodoItemCallback}
                             deleteItemCallback={this.props.deleteItemCallback}
+                            canUp={count !== 0}
+                            canDown={count++ !== this.props.toDoListItems.length - 1}
                         />))
                     }
                 </div>

@@ -119,8 +119,14 @@ class ToDoItem extends Component {
                 
                 <div className='item-col test-4-col'></div>
                 <div className='item-col list-controls-col'>
-                    <KeyboardArrowUp className='list-item-control todo-button' onClick={this.moveItemUp}/>
-                    <KeyboardArrowDown className='list-item-control todo-button' onClick={this.moveItemDown}/>
+                    {this.props.canUp ?
+                        <KeyboardArrowUp className='list-item-control todo-button' onClick={this.moveItemUp}/>:
+                        <KeyboardArrowUp className='list-item-control disabled-button'/>
+                    }
+                    {this.props.canDown ?
+                        <KeyboardArrowDown className='list-item-control todo-button' onClick={this.moveItemDown}/>:
+                        <KeyboardArrowDown className='list-item-control disabled-button'/>
+                    }
                     <Close className='list-item-control todo-button' onClick={this.deleteItem}/>
                     <div className='list-item-control'></div>
         <div className='list-item-control'></div>
