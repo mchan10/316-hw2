@@ -43,7 +43,7 @@ class ListLink extends Component {
             <div>
                 {this.props.first ?
                     this.state.inputNameChange ?
-                        <input type='text' autoFocus onBlur={this.handleNameChange} defaultValue={this.props.toDoList.name}>
+                        <input type='text' className='todo-list-button' autoFocus onBlur={this.handleNameChange} defaultValue={this.props.toDoList.name}>
                         </input>:
                         <div 
                             className='todo-list-button firstList'

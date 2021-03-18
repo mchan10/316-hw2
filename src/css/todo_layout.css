@@ -39,7 +39,7 @@
 }
 
 #workspace {
-    width:85.5%;
+    width:84.5%;
     top:5.5%;
     left:13%;
     padding-left: 15px;
@@ -82,8 +82,15 @@
     white-space: nowrap;
 }
 
-#left-sidebar-controls {
+.left-sidebar-controls {
     text-align: right;
+    float:right;
+    display:flex;
+    justify-content: flex-end;
+}
+
+.left-sidebar-header-text{
+    padding-right: 70px;
 }
 
 #todo-list-header-card {
