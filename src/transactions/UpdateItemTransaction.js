@@ -16,9 +16,12 @@ export default class UpdateItemTransaction extends jsTPS_Transaction {
 
     doTransaction() {
         let oldItem = this.fn(this.id, this.newDesc, this.newDate, this.newStatus);
+        this.oldDesc = oldItem.description;
+        this.oldDate = oldItem.due_date;
+        this.oldStatus = oldItem.status;
     }
 
     undoTransaction() {
-        
+        this.fn(this.id, this.oldDesc, this.oldDate, this.oldStatus);
     }
 }

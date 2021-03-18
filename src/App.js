@@ -121,15 +121,13 @@ class App extends Component {
       id: id,
       status: stat
     };
-    console.log(this.state.currentList);
     let updatedList = this.state.currentList;
     let oldItem = updatedList.items.filter(listItem => listItem.id === id)[0];
     updatedList.items = updatedList.items.map(listItem => listItem.id === id ? newListItem : listItem);
     let updatedLists = this.state.toDoLists;
-    console.log(updatedList);
     updatedLists.shift();
     updatedLists.unshift(updatedList);
-    console.log(updatedLists);
+    console.log(oldItem);
     this.setState({
       currentList: updatedList,
       toDoLists: updatedLists

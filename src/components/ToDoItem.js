@@ -50,6 +50,30 @@ class ToDoItem extends Component {
         });
     }
 
+    updateDate = (event) => {
+        let newDate = event.target.value;
+        let listItem = this.props.toDoListItem;
+        this.props.updateTodoListCallback(listItem.id, listItem.description, newDate, listItem.status);
+        this.setState({
+            inputOpenDate: false
+        });
+    }
+
+    updateStatus = (event) => {
+        let newStatus;
+        if (event.target.value == '1'){
+            newStatus = "complete"
+        }
+        else{
+            newStatus = "incomplete"
+        }
+        let listItem = this.props.toDoListItem;
+        this.props.updateTodoListCallback(listItem.id, listItem.description, listItem.due_date, newStatus);
+        this.setState({
+            inputOpenStatus: false
+        });
+    }
+
     render() {
         // DISPLAY WHERE WE ARE
         console.log("\t\t\tToDoItem render");
@@ -66,11 +90,11 @@ class ToDoItem extends Component {
                 }
                 {this.state.inputOpenDate?
                     <input className='item-col input-col' type='date' autoFocus
-                    defaultValue={listItem.due_date} onBlur={this.inputName}></input> :
+                    defaultValue={listItem.due_date} onBlur={this.updateDate}></input> :
                     <div className='item-col due-date-col' onClick={this.inputDate}>{listItem.due_date}</div>
                 }
                 {this.state.inputOpenStatus?
-                    <select class='input-col'>
+                    <select class='input-col'autoFocus onBlur={this.updateStatus}>
                         <option value=''> {listItem.status} </option>
                         <option value='1'> complete </option> 
                         <option value='2'> incomplete </option>
