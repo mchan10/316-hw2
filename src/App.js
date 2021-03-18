@@ -289,12 +289,21 @@ class App extends Component {
     updatedLists.shift();
     this.setState({
       currentList: updatedList,
-      toDoLists: updatedLists
+      toDoLists: updatedLists,
+      showModal: !this.state.showModal
+    }, this.afterToDoListsChangeComplete);
+  }
+
+  closeCurrentList = () => {
+    let updatedList = null;
+    this.tps.clearAllTransactions();
+    this.setState({
+      currentList: updatedList
     }, this.afterToDoListsChangeComplete);
   }
 
   render() {
-    let items = this.state.currentList.items;
+    let items = this.state.currentList === null ? [] : this.state.currentList.items;
     return (
       <div id="root">
         <Navbar />
@@ -312,6 +321,7 @@ class App extends Component {
           moveTodoItemCallback={this.moveTodoItemTrans}
           deleteItemCallback={this.removeTodoItemTrans}
           showModalCallback={this.deleteItemConfirmation}
+          closeCurrentListCallback={this.closeCurrentList}
         />
         {this.state.showModal?
         <Modal 

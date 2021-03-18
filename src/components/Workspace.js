@@ -21,7 +21,7 @@ class Workspace extends Component {
                     <div className="item-col" display="flex" flexDirection="row" flexWrap="nowrap">
                         <AddBox id="add-item-button" className="list-item-control material-icons todo-button" onClick={this.props.addNewTodoItemCallback}/>
                         <Delete id="delete-list-button" className="list-item-control material-icons todo-button" onClick={this.props.showModalCallback}/>
-                        <Close id="close-list-button" className="list-item-control material-icons todo-button" />
+                        <Close id="close-list-button" className="list-item-control material-icons todo-button" onClick={this.props.closeCurrentListCallback}/>
                     </div>
                 </div>
                 <div id="todo-list-items-div">
