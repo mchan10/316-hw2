@@ -108,7 +108,6 @@ body{
 #todo-list-items-div {
     height:96%;
     top:7%;
-    display: flex;
     flex-direction: column;
     overflow:auto;
 }
