@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import testData from './test/testData.json'
 import jsTPS from './common/jsTPS' // WE NEED THIS TOO
 import UpdateItemTransaction from './transactions/UpdateItemTransaction'
-import AddNewItemTransaction from './transactions/AddNewItemTransation'
+import AddNewItemTransaction from './transactions/AddNewItemTransaction'
+import MoveItemTransaction from './transactions/MoveItemTransaction';
 
 // THESE ARE OUR REACT COMPONENTS
 import Navbar from './components/Navbar'
@@ -198,6 +199,41 @@ class App extends Component {
     let transaction = new AddNewItemTransaction(this.addNewTodoItem, this.removeTodoItem);
     this.tps.addTransaction(transaction);
   }
+  
+  moveTodoItem = (id, position) =>{
+    let updatedList = this.state.currentList;
+    let oldpos;
+    for (let i = 0; i < updatedList.items.length; i++){
+      if (updatedList.items[i].id === id){
+        oldpos = i;
+        break;
+      }
+    }
+    let listItem = updatedList.items.splice(oldpos, 1);
+    updatedList.items.splice(position, 0, listItem[0]);
+    let updatedLists = this.state.toDoLists;
+    updatedLists.shift();
+    updatedLists.unshift(updatedList);
+    this.setState({
+      currentList: updatedList,
+      toDoLists: updatedLists
+    }, this.afterToDoListsChangeComplete);
+    return oldpos;
+  }
+
+  moveTodoItemTrans = (id, offset) => {
+    let updatedList = this.state.currentList;
+    let index = 0;
+    for (let i = 0; i < updatedList.items.length; i++){
+      if (updatedList.items[i].id == id){
+        index = i;
+        break;
+      }
+    }
+    index = index + offset;
+    let transaction = new MoveItemTransaction(this.moveTodoItem, id, index);
+    this.tps.addTransaction(transaction);
+  }
 
 
   render() {
@@ -216,6 +252,7 @@ class App extends Component {
           toDoListItems={items} 
           updateTodoListCallback={this.updateTodoListItem}
           addNewTodoItemCallback={this.addNewTodoItemTrans}
+          moveTodoItemCallback={this.moveTodoItemTrans}
         />
       </div>
     );
